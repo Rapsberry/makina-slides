@@ -16,34 +16,6 @@
 * Drag & Drop
 * Localstorage
 
-
-## Presenter notes
-
-* _Intro : le WorldWideWeb_ (10 min)
-* Doctype (5min)
-* Sémantique (15min)
-* Formulaires (30min)
-  * exercice (15min)
-* Media (figure, audio, video) (30min)
-  * exercice (15min)
-* Canvas et SVG (15min)
-* Drag & Drop (15min)
-* Localstorage (15min)
-
-### plan CDC
-
-1. Introduction à HTML5 (nouveau Doctype, nouveaux éléments sémantiques, audio, video, canvas, géolocalisation, drag and drop, localstorage)
-2. Introduction à CSS3 (propriétés, sélecteurs, préfixes, médias, transitions, transformations, Internet Explorer)
-3. Syntaxe, préfixes et usages CSS3
-4. Valeurs, fonctions et unités
-5. La gestion des médias avec Media-Queries
-6. Propriétés de texte et de contenu
-7. Propriétés décoratives CSS3
-8. Le positionnement en CSS3
-9. La sélection d'éléments en CSS3
-10. Les transformations
-11. Les transitions et animations 
-
 ----
 
 # Jour 2 : Bootstrap, LessCSS
@@ -122,8 +94,6 @@ Scission au sein du W3C : le **WHATWG** (Web Hypertext Application Technology Wo
     * officielle [w3c.org/TR/html5](http://www.w3.org/TR/html5/)
     * compréhensible [developer.mozilla.org](https://developer.mozilla.org/fr/)
 
-.fx: larger
-
 ----
 
 # Partie 1 : HTML5
@@ -163,6 +133,8 @@ Scission au sein du W3C : le **WHATWG** (Web Hypertext Application Technology Wo
 * Section : `<article>`, `<aside>`, `<nav>`, `<section>`, `<header>`, `<footer>`
 * Grouper : `<figure>`, `<figcaption>`
 
+Code plus clair, page mieux structurée sémantiquement : un meilleur référencement.
+
 <!-- Voir [tinytypo.tetue.net](http://tinytypo.tetue.net/tinytypo.html) -->
 
 ## Microdatas
@@ -170,6 +142,36 @@ Scission au sein du W3C : le **WHATWG** (Web Hypertext Application Technology Wo
 voir [schema.org](http://schema.org/docs/gs.html)
 
 Autres implémentations : microformats, RDFa
+
+--- 
+
+## Code
+
+    <body>
+        <header>
+            <nav data-role="menu">
+                <ul>
+                ...
+                </ul>
+            </nav>
+        </header>
+        <div id="main">
+            <aside>
+            ...
+            </aside>
+            <section id="content">
+                <article>
+                    <figure><img src="__mon__url__" /></figure>
+                    <p>Texte</p>
+                </article>
+            </section>
+        </div>
+        <footer>
+        ...
+        </footer>
+    </body>
+
+.fx: smaller
 
 ----
 
@@ -189,12 +191,47 @@ Autres implémentations : microformats, RDFa
 * pattern
 * autocomplete
 * min, max, step (pour date, time, number et range)
+* list
 
-----
+--- 
+
+## Code
+
+Url avec placeholder
+
+    <input type="url" name="url"   placeholder="Votre site Web" />
+
+Range
+
+    <input type="range" name="range" 
+        min="10" max="100" step="5" value="15"/>
+
+Pattern
+
+    <input type="text" name="pattern"   pattern="[a-z]{2}[0-9]{2}" />
+
+Liste
+
+    <input type="text" name="ville" list="villes"/>
+    <datalist id="villes">
+        <option value="Albi">
+        <option value="Cahors">
+    </datalist>
+
+.fx: smaller
+
+---
 
 ## Exercice
 
+* Créez un formulaire avec les champs suivants : 
+    * Nom, 
+    * Courriel, 
+    * Date de naissance, 
+    * Couleur préférée, 
+    * Fruit préféré parmi 3 ou 4 fruits
 
+[Exemple complet](https://github.com/numahell/html5-css3/blob/master/html/forms.html)
 
 ----
 
@@ -202,10 +239,9 @@ Autres implémentations : microformats, RDFa
 
 ## `<audio>` et `<video>`
 
-    <audio id="musique" controls>
-        <source src="donjon-episode31.ogg"></source>
-        <source src="donjon-crom.mp3"></source>
-    </audio>
+    <audio src="./donjon-crom.mp3" controls></audio>
+    <video src="bbb.ogg" controls 
+        poster="bbb.jpg" width="640" height="480">
 
 Les limites : 
 
@@ -215,6 +251,14 @@ Les limites :
     * ogg -> Firefox
     * webm -> Chrome
     * mp4 -> Chrome, IE 
+
+---
+
+## Code
+
+On peut inclure plusieurs formats de media
+
+    
 
 ----
 
@@ -228,7 +272,11 @@ Les limites :
 
 # Application web en HTML5
 
-## Stockage
+## Drag&Drop
+
+
+
+## Local Stockage
 
 * App Cache
 * LOCALSTORAGE
@@ -243,10 +291,7 @@ Les limites :
 
 * Web Sockets
 
-## Threads et requests
 
-* WEB workers
-* XMLHTTPREQUEST 2
 
 ----
 
@@ -321,7 +366,8 @@ flexbox
 
 ## Font-Face
 
-[fontsquirrel.com](http://www.fontsquirrel.com/)
+* [fontsquirrel.com](http://www.fontsquirrel.com/)
+* [www.google.com/fonts](http://www.google.com/fonts/)
 
 ----
 

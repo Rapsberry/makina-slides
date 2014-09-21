@@ -5,7 +5,19 @@
 
 ----
 
-# HTML5 / CSS3
+## Présentation
+
+**Emmanuelle Helly**
+
+* Intégratrice HTML/CSS depuis 2008
+* Plone, Drupal
+* emmanuelle.helly@makina-corpus.net
+
+----
+
+# Jour 1 : HTML5 / CSS3
+
+## HTML5
 
 * _Intro : le WorldWideWeb_
 * Doctype
@@ -15,6 +27,19 @@
 * Canvas et SVG
 * Drag & Drop
 * Localstorage
+
+----
+
+## CSS3
+
+* Mise en forme
+* Sélecteurs
+* Unités relatives et absolues
+* Positionnement
+* Mise en page (Grid layout)
+* Media-queries
+* Transformations
+* Effets et animations
 
 ----
 
@@ -137,15 +162,9 @@ Code plus clair, page mieux structurée sémantiquement : un meilleur référenc
 
 <!-- Voir [tinytypo.tetue.net](http://tinytypo.tetue.net/tinytypo.html) -->
 
-## Microdatas
-
-voir [schema.org](http://schema.org/docs/gs.html)
-
-Autres implémentations : microformats, RDFa
-
 --- 
 
-## Code
+## Structure d'une page
 
     <body>
         <header>
@@ -172,6 +191,32 @@ Autres implémentations : microformats, RDFa
     </body>
 
 .fx: smaller
+
+----
+
+## Microdatas
+
+Voir [schema.org](http://schema.org/docs/gs.html)
+
+    <div itemscope itemtype="http://schema.org/Person">
+        <div itemprop="name"><strong>Emmanuelle Helly</strong></div>
+        <div itemscope 
+            itemtype="http://schema.org/Organization">
+        <a itemprop="url" href="www.ekino.com">
+          <span itemprop="name">Makina Corpus</span></a>
+        </div>
+        <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+          <div itemprop="streetAddress">36 rue Jacques Babinet</div>
+          <div>
+            <span itemprop="postalCode">31100</span>
+            <span itemprop="addressLocality">Toulouse</span>
+          </div>
+          <div itemprop="addressCountry">France</div>
+        </div>
+        <div itemprop="telephone">0149687368</div>
+    </div>
+
+Autres implémentations : microformats, RDFa
 
 ----
 
@@ -225,11 +270,11 @@ Liste
 ## Exercice
 
 * Créez un formulaire avec les champs suivants : 
-    * Nom, 
-    * Courriel, 
+    * Nom complet, 
+    * Téléphone, 
     * Date de naissance, 
     * Couleur préférée, 
-    * Fruit préféré parmi 3 ou 4 fruits
+    * Ville (parmi quelques villes)
 
 [Exemple complet](https://github.com/numahell/html5-css3/blob/master/html/forms.html)
 
@@ -237,36 +282,115 @@ Liste
 
 # Media et Éléments embarqués
 
+## `<embed>` et `<object`>
+
+Pour embarquer des objets flash par exemple.
+
 ## `<audio>` et `<video>`
 
     <audio src="./donjon-crom.mp3" controls></audio>
-    <video src="bbb.ogg" controls 
-        poster="bbb.jpg" width="640" height="480">
+    <video src="video.ogg" controls 
+        poster="video.jpg" width="640" height="480">
 
-Les limites : 
+Les limites : formats de fichiers différents / navigateurs
 
-* pas de DRM, les ayant-droits souhaitant ajouter du DRM dans HTML5 ("Hollyweb")
-* streaming compliqué
-* formats de fichiers différents / navigateurs
-    * ogg -> Firefox
-    * webm -> Chrome
-    * mp4 -> Chrome, IE 
+* ogg -> Firefox
+* webm -> Chrome
+* mp4 -> Chrome, IE 
 
----
+----
 
 ## Code
 
 On peut inclure plusieurs formats de media
 
-    
+    <video controls poster="video.jpg" width="640" height="480">
+        <source src="video.ogg" />
+        <source src="video.avi" />
+        <source src="video.mp4" />
+    </video>
+
+## Exercice
+
+Essayer la balise `<video>` avec différentes sources, en ouvrant la page dans différents navigateurs.
 
 ----
 
-# CANVAS et SVG
+## `<figure>`
 
-* Canvas vs. SVG
-* Web gl
-* Flash n’est pas (tout à fait) mort
+Permet d'illustrer et ajouter une légende à une image, un schéma.
+
+    <figure>
+      <img src="image.jpg" alt="" />
+      <figcaption>Légende de l'image</figcaption>
+    </figure>
+
+Peut contenir autre chose que des images : du code ou une vidéo par exemple.
+
+## `<iframe>`
+
+Peut embarquer un autre site, un éditeur de texte riche par example.
+
+----
+
+# Effets et 3D
+
+## CANVAS
+
+* surface de pixels contrôlés en JavaScript, API disponible
+* Fonctionnement en "boite noire"
+
+Le "Paint" du web
+
+    <html>
+     <head>
+      <script type="application/x-javascript">
+        function draw() {
+         var canvas = document.getElementById("canvas");
+         var ctx = canvas.getContext("2d");
+
+         ctx.fillStyle = "rgb(200,0,0)";
+         ctx.fillRect (10, 10, 55, 50);
+        }
+      </script>
+     </head>
+     <body onload="draw()">
+       <canvas id="canvas" width="300" height="300"></canvas>
+     </body>
+    </html>
+
+.fx: smaller
+
+----
+
+## SVG
+
+Dessiner en 2D vectorielle via XML
+
+* Accès aux éléments d'un SVG depuis le DOM
+* CSS applicables
+* Peut être chargé depuis un fichier externe ou en ligne dans un document HTML
+* L’arbre des données est conservé en mémoire
+
+### Example
+
+    <svg>
+      <circle id="circle1" cx="40" cy="40" r="24" />
+    </svg>
+
+Voir aussi [css-tricks.com/using-svg](http://css-tricks.com/using-svg/)
+
+----
+
+## WebGL
+
+Un peu plus que bablutiant : de plus en plus de navigateurs le supportent, mais pas toujours les cartes vidéos.
+
+Voir [Les interfaces de demain](http://fr.slideshare.net/makinacorpus/petit-djeuner-html5-et-css3-les-interfaces-de-demain) pour plus de détails.
+
+## Flash ?
+
+Il n’est pas (tout à fait) mort, mais n'est plus supporté par les Iphone et Ipad
 
 ----
 
@@ -312,9 +436,23 @@ On peut inclure plusieurs formats de media
 
 ----
 
-## Sélecteurs
+## Font-Face
 
-### Sélecteurs CSS2 maintenant implémentés :
+* [fontsquirrel.com](http://www.fontsquirrel.com/)
+* [www.google.com/fonts](http://www.google.com/fonts/)
+
+----
+
+## Extensions spécifiques des navigateurs
+
+
+----
+
+# Sélecteurs
+
+## Sélecteurs CSS2
+
+Sont maintenant implémentés par les navigateurs modernes
 
 par attribut
 
@@ -330,7 +468,7 @@ par élément frère
 
 ----
 
-### Sélecteurs CSS3
+## Sélecteurs CSS3
 
 par attribut
 
@@ -358,24 +496,46 @@ première lettre, première ligne
 
 ----
 
-# Grid Layout
+# Unités
+
+## Absolues
+
+px, pt
+
+## Relatives
+
+* em, %
+* rem (root em), relative à la taille attibuée au document
+
+----
+
+# Positionnement
+
+## Dans le flux
+
+## Hors du flux
+
+
+
+----
+
+# Mise en page
 
 flexbox
 
 ----
 
-## Font-Face
+# Media-queries
 
-* [fontsquirrel.com](http://www.fontsquirrel.com/)
-* [www.google.com/fonts](http://www.google.com/fonts/)
+* Le responsive webdesign en image
+* Orientation et Localisation
+* Device api
 
 ----
 
-# Media-queries
+## Transformations
 
-Le responsive webdesign en image
-Orientation et Localisation
-Device api
+
 
 ----
 
@@ -383,9 +543,6 @@ Device api
 
 ## Transitions / Animations
 
-## Transformations
-
-## Extensions spécifiques des navigateurs
 
 ---- 
 

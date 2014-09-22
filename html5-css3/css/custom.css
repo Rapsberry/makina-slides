@@ -20,7 +20,7 @@ div.presentation, div.slide {
 }
 pre {
     padding: 10px;
-    background-color: #555;
+    background-color: #222;
     font-size: 20px;
 }
 
@@ -59,6 +59,12 @@ a {
 .smaller section pre {
     font-size: 18px;
 }
+.smaller div h1 {
+    font-size: 40px;
+}
+
+/* Larger */
+
 
 .larger section {
     font-size: 30px;

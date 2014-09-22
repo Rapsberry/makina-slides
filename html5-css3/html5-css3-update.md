@@ -155,6 +155,7 @@ Scission au sein du W3C : le **WHATWG** (Web Hypertext Application Technology Wo
 
 ## Balises
 
+* Inline : `<mark>`, `<time>`, `<meter>`, `<progress>`
 * Section : `<article>`, `<aside>`, `<nav>`, `<section>`, `<header>`, `<footer>`
 * Grouper : `<figure>`, `<figcaption>`
 
@@ -166,6 +167,7 @@ Code plus clair, page mieux structurée sémantiquement : un meilleur référenc
 
 ## Structure d'une page
 
+    !html
     <body>
         <header>
             <nav data-role="menu">
@@ -198,18 +200,20 @@ Code plus clair, page mieux structurée sémantiquement : un meilleur référenc
 
 Voir [schema.org](http://schema.org/docs/gs.html)
 
+    !html
     <div itemscope itemtype="http://schema.org/Person">
-        <div itemprop="name"><strong>Emmanuelle Helly</strong></div>
+        <div itemprop="name"><strong>Boris Vian</strong></div>
         <div itemscope 
             itemtype="http://schema.org/Organization">
-        <a itemprop="url" href="www.ekino.com">
-          <span itemprop="name">Makina Corpus</span></a>
+        <a itemprop="url" href="www.letabou.com">
+          <span itemprop="name">le Tabou</span></a>
         </div>
         <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-          <div itemprop="streetAddress">36 rue Jacques Babinet</div>
+          <div itemprop="streetAddress">le Tabou<br>
+                Saint Germain des Prés</div>
           <div>
-            <span itemprop="postalCode">31100</span>
-            <span itemprop="addressLocality">Toulouse</span>
+            <span itemprop="postalCode">75006</span>
+            <span itemprop="addressLocality">Paris</span>
           </div>
           <div itemprop="addressCountry">France</div>
         </div>
@@ -217,6 +221,8 @@ Voir [schema.org](http://schema.org/docs/gs.html)
     </div>
 
 Autres implémentations : microformats, RDFa
+
+.fx: smaller
 
 ----
 
@@ -244,19 +250,23 @@ Autres implémentations : microformats, RDFa
 
 Url avec placeholder
 
+    !html
     <input type="url" name="url"   placeholder="Votre site Web" />
 
 Range
 
+    !html
     <input type="range" name="range" 
         min="10" max="100" step="5" value="15"/>
 
 Pattern
 
+    !html
     <input type="text" name="pattern"   pattern="[a-z]{2}[0-9]{2}" />
 
 Liste
 
+    !html
     <input type="text" name="ville" list="villes"/>
     <datalist id="villes">
         <option value="Albi">
@@ -288,6 +298,7 @@ Pour embarquer des objets flash par exemple.
 
 ## `<audio>` et `<video>`
 
+    !html
     <audio src="./donjon-crom.mp3" controls></audio>
     <video src="video.ogg" controls 
         poster="video.jpg" width="640" height="480">
@@ -304,6 +315,7 @@ Les limites : formats de fichiers différents / navigateurs
 
 On peut inclure plusieurs formats de media
 
+    !html
     <video controls poster="video.jpg" width="640" height="480">
         <source src="video.ogg" />
         <source src="video.avi" />
@@ -320,6 +332,7 @@ Essayer la balise `<video>` avec différentes sources, en ouvrant la page dans d
 
 Permet d'illustrer et ajouter une légende à une image, un schéma.
 
+    !html
     <figure>
       <img src="image.jpg" alt="" />
       <figcaption>Légende de l'image</figcaption>
@@ -342,6 +355,7 @@ Peut embarquer un autre site, un éditeur de texte riche par example.
 
 Le "Paint" du web
 
+    !html
     <html>
      <head>
       <script type="application/x-javascript">
@@ -374,6 +388,7 @@ Dessiner en 2D vectorielle via XML
 
 ### Example
 
+    !html
     <svg>
       <circle id="circle1" cx="40" cy="40" r="24" />
     </svg>
@@ -398,28 +413,28 @@ Il n’est pas (tout à fait) mort, mais n'est plus supporté par les Iphone et 
 
 ## Drag&Drop
 
-
-
 ## Local Stockage
-
-* App Cache
-* LOCALSTORAGE
-* INDEXED DB
-* Limites & USAGES
-
 
 ## File API
 
-
 ## Server-Sent Events
-
-* Web Sockets
-
-
 
 ----
 
 # Partie 2 : CSS3
+
+----
+
+## Sommaire
+
+* Mise en forme
+* Sélecteurs
+* Unités relatives et absolues
+* Positionnement
+* Mise en page (Grid layout)
+* Media-queries
+* Transformations
+* Effets et animations
 
 ----
 
@@ -438,13 +453,50 @@ Il n’est pas (tout à fait) mort, mais n'est plus supporté par les Iphone et 
 
 ## Font-Face
 
-* [fontsquirrel.com](http://www.fontsquirrel.com/)
-* [www.google.com/fonts](http://www.google.com/fonts/)
+    !css
+    /* roboto bold */
+    @font-face {
+        font-family: 'roboto';
+        src: url('roboto/Roboto-Bold-webfont.eot');
+        src: url('roboto/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+             url('roboto/Roboto-Bold-webfont.woff') format('woff'),
+             url('roboto/Roboto-Bold-webfont.ttf') format('truetype'),
+             url('roboto/Roboto-Bold-webfont.svg#robotobold') format('svg');
+        font-weight: bold;
+        font-style: normal;
+    }
+
+* Trouvez des fonts sur [fontsquirrel.com](http://www.fontsquirrel.com/)
+* Possibilité de faire un import des fonts depuis [www.google.com/fonts](http://www.google.com/fonts/)
+
+Attention à la qualité des glyphes, peuvent être mal positionnés sur la ligne de base.
 
 ----
 
 ## Extensions spécifiques des navigateurs
 
+Les navigateurs principaux
+
+<table border=1>
+    <tbody>
+        <tr>
+            <td>Safari / Chrome</td>
+            <td>-webkit-</td>
+        </tr>
+        <tr>
+            <td>Firefox</td>
+            <td>-moz-</td>
+        </tr>
+        <tr>
+            <td>Opera</td>
+            <td>-o-</td>
+        </tr>
+        <tr>
+            <td>Internet Explorer</td>
+            <td>-ms-</td>
+        </tr>
+    </tbody>
+</table>
 
 ----
 
@@ -456,14 +508,17 @@ Sont maintenant implémentés par les navigateurs modernes
 
 par attribut
 
+    !css
     a[attribut~="valeur"]
 
 par élément fils direct
 
+    !css
     a > b
 
 par élément frère
 
+    !css
     a + b
 
 ----
@@ -472,20 +527,24 @@ par élément frère
 
 par attribut
 
+    !css
     a[attribut^="valeur"]
 
 par fils premier, dernier ou tous les x éléments
 
+    !css
     a:first-child
     a:last-child
     a:nth-child(expression)
 
 négation
 
+    !css
     a:not(.class)
 
 première lettre, première ligne
 
+    !css
     ::first-letter
     ::first-line
 
@@ -511,25 +570,51 @@ px, pt
 
 # Positionnement
 
-## Dans le flux
+    !css
+    position: absolute;
+    top: 10%;
+    left: 50px;
 
-## Hors du flux
-
-
+* L'élément sort du flux
+* Position relatif au document ou à l'élément parent le plus proche positionné en relatif
 
 ----
 
 # Mise en page
 
-flexbox
+## Flexbox
+
+    !css
+    .flex { display: flex; }
+
+    !html
+    <div class="flex">
+        <div>texte 1</div>
+        <div>texte 2</div>
+    </div>
+
+Relativement bien supporté par les navigateurs (IE>=11), très bientôt utilisable.
+
+## Colonne
+
+    !css
+    div {
+        column-count: 2;
+        column-width: 12em;
+    }
+
+Supporté par les navigateurs actuels en utilisant les préfixes (voir caniuse.com)
+
+.fx: smaller
 
 ----
 
 # Media-queries
 
-* Le responsive webdesign en image
-* Orientation et Localisation
-* Device api
+    @media (min-width: 700px) and (orientation: landscape) {…}
+
+* Orientation (`portrait` ou `landscape`) et Localisation
+* Device api (`screen`, `print`, `tv`, )
 
 ----
 
@@ -619,6 +704,7 @@ this is notes
 
 ## variables
 
+    !css
     @nice-blue: #5B83AD;
     @light-blue: @nice-blue + #111;
 
@@ -628,24 +714,116 @@ this is notes
 
 Résultat :
 
+    !css
     #header {
       color: #6c94be;
     }
 
+Un gain de temps inestimable pour l'intégration front-end
+
+----
+
 ## imbrication de code
 
+    !css
+    #header {
+      color: black;
+      .navigation {
+        font-size: 12px;
+      }
+      .logo {
+        width: 300px;
+      }
+    }
+
 ----
 
-# mixins et fonctions
+# Mixins et fonctions
 
+    !css
+    .a, #b {
+      color: red;
+    }
+    .mixin-class {
+      .a();
+    }
+    .mixin-id {
+      #b();
+    }
+
+Résultat :
+
+    !css
+    .a, #b {
+      color: red;
+    }
+    .mixin-class {
+      color: red;
+    }
+    .mixin-id {
+      color: red;
+    }
 
 ----
 
-# importation de fichier
+# Import de fichier
+
+    !css
+    @import (option) "fichier";
+
+Les options
+
+* `reference`: importe en tant que fichier less sans l'inclure dans la sortie css. Très utilisé pour les fichiers de fonctions less.
+* `inline`: inclue le fichier sans le compiler
+* `less`: traite le fichier en tant que less, quelque soit l'extension
+* `css`: traite le fichier en tant que css
+* `once`: n'importe le fichier qu'une seule fois (comportement par défaut)
+* `multiple`: importe le fichier plusieurs fois
+
 
 ----
 
 # TP : un thème avec LessCSS et Bootstrap
+
+----
+
+## Intégrer un design simple
+
+1. Créer l'arborescence du projet
+1. Créer une structure de page d'accueil en utilisant les fonctionnalités de bootstrap
+
+----
+
+## Arborescence type d'un thème
+
+    !console
+    mon_projet
+    ├── base.html
+    └── mon_theme
+        ├── bootstrap -> /chemin/vers/dossier/bibliotheques/bootstrap/
+        ├── css
+        ├── fonts
+        ├── img
+        ├── js
+        └── less
+            ├── components/
+            │   ├── search.less
+            │   ├── nav.less
+            │   └── forms.less
+            ├── bootstrap.less
+            ├── content.less
+            ├── footer.less
+            ├── header.less
+            ├── style.less
+            ├── mixins_project.less
+            ├── variables_project.less
+            └── variables.less
+
+Compiler vos fichiers
+
+    lessc less/style.less css/style.css
+
+.fx: smaller
 
 ----
 

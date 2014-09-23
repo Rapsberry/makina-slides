@@ -618,16 +618,30 @@ Supporté par les navigateurs actuels en utilisant les préfixes (voir caniuse.c
 
 ----
 
-## Transformations
+# CSS animé
 
+## Transitions
 
+    a:hover {
+        transition color 200ms ease;
+    }
+
+Sur les propriété `height`, `width`, `color`, `background`
 
 ----
 
-# CSS animé
+## Transformations
 
-## Transitions / Animations
+Rotation, translations
 
+----
+
+# TP Mise en page
+
+* Créer une page structurée
+* Ajouter un menu horizontal déroulant
+* Ajouter une image de fond positionnée
+* Responsive
 
 ---- 
 

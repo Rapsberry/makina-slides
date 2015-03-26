@@ -18,6 +18,9 @@ div.presentation, div.slide {
     border-radius: 0;
     background-color: #232f39; /* colour of the slide */
 }
+div.slide.current {
+    z-index: 10;
+}
 pre {
     padding: 10px;
     background-color: #222;

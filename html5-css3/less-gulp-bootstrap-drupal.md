@@ -1,15 +1,12 @@
 # Drupal Bootstrap / Less et Gulp
 
  23 mars 2015
- 
-
-----
 
 ## Présentation
 
 **Emmanuelle Helly**
 
-* Intégratrice HTML/CSS depuis 2008
+* Intégratrice HTML/CSS
 * Plone, Drupal
 * emmanuelle.helly@makina-corpus.net
 
@@ -17,11 +14,20 @@
 
 # Programme
 
+## Installer l'environnement
+
+* Installation de nodejs
+* Installation de Drupal et Bootstrap
+* Installation des modules nécessaires pour Gulp
+* Tâches de Gulp
+
 ## Bootstrap
 
 * Mise en forme du contenu
 * Mise en page avec la grille adaptative de Bootstrap : pour des sites Responsive Web Design
 * Composants Bootstrap
+
+---- 
 
 ## Less
 
@@ -31,17 +37,124 @@
 * pseudo-classes
 * importation de fichier
 
----- 
-
 ## Thème Drupal bootstrap
 
 * Arborescence du thème
 
-## Gulp
+----
 
-* Installation de nodejs
-* Installation des modules nécessaires
-* Tâches de Gulp
+# Installer l'environnement
+
+----
+
+## À quoi sert gulp ?
+
+Gulp sera utilisé pour :
+
+* générer les fichiers css à partir de style.less et bootstrap.less, à chaque modification d'un fichier
+* minifier les fichiers css et js (optionnel, dans ce cas on n'utilise pas les fonctions de minification de Drupal)
+
+----
+
+## Installer nodejs
+
+Un outil pratique pour gérer les version de nodejs : [nvm](https://github.com/creationix/nvm)
+
+    !console
+    curl https://raw.githubusercontent.com/creationix/nvm/v0.24.0/install.sh | bash
+
+Si nvm n'est pas dans le PATH:
+
+    !console
+    source ~/.nvm/nvm.sh
+
+Installer et utiliser nodejs 0.10
+
+    !console
+    nvm install 0.10 # or stable
+    nvm use 0.10 # or stable
+
+----
+
+# Créer un thème basé sur bootstrap pour un nouveau projet
+
+* Installer Drupal et le thème bootstrap
+* créer un sous-thème
+* Installer les packages gulp
+
+----
+
+## Installer Drupal et les dépendences
+
+Installer Drupal et le thème drupal Bootstrap
+
+    !console
+    drush dl bootstrap ; drush en -y bootstrap
+    drush dl
+
+Installer Bootstrap dans sites/all/libraries
+
+    !console
+    wget https://github.com/twbs/bootstrap/archive/v3.3.4.zip
+    unzip v3.3.4.zip
+
+On peut ajouter les lignes au fichier mon_profil.make
+
+    !console
+    ; Themes
+    ; Base theme 
+    ; Beware: Bootstrap 3.1 version will require PHP 5.3 and jQuery 1.9+
+    projects[] = bootstrap
+    libraries[bootstrap][download][type] = "get"
+    libraries[bootstrap][download][url] = "https://github.com/twbs/bootstrap/archive/v3.3.4.zip"
+    projects[] = views_bootstrap
+
+----
+
+## Créer un sous-thème
+
+    !console
+    cd sites/all/themes
+    mv bootstrap/bootstrap_subtheme montheme
+    cd montheme
+    mv bootstrap_subtheme.info.starterkit montheme.info
+
+Dans montheme.info, décommenter settings[cdn]
+
+Créer un lien symbolique vers la librairie du framework bootstrap
+
+    !console
+    ln -s $PROJECT/sites/all/libraries/bootstrap \
+        $PROJECT/sites/all/themes/montheme
+
+----
+
+## Installer les packages gulp et less
+
+Copier package.json et gulpfile.js dans le dossier de thème
+
+Activer l'environnement node
+
+    !console
+    nvm use 0.10
+
+Lancer l'installation des paquets :
+
+    !console
+    cd /dossier/de/montheme
+    npm install
+
+Les paquets sont installés dans le dossier node_modules
+
+----
+
+# Utiliser l'environnement
+
+Pour travailler sur le thème, activer l'environnement node et lancer la commande gulp watch
+
+    !console
+    nvm use 0.10
+    ./node_modules/.bin/gulp watch
 
 ----
 
@@ -71,6 +184,8 @@
 
 ##  La grille bootstrap
 
+[Grid option](http://getbootstrap.com/css/#grid-options)
+
 * Le principe
 * colonnes imbriquées
 * offset
@@ -87,12 +202,7 @@
 * Media (groupe d'image + texte)
 * Vignettes
 
-### Presenter Notes
-
-this is notes
-
-----
-
+---
 
 # LessCSS
 
@@ -105,7 +215,9 @@ this is notes
 * mixins
 * importation de fichier
 
-## Installer LessCSS
+----
+
+# Installer LessCSS
 
 * Dans windows : [winless.org](http://winless.org/)
 * Pour utiliser plus de fonctionnalités de nodejs : [nodejs.org](http://nodejs.org/download/)
@@ -151,6 +263,8 @@ Un gain de temps inestimable pour l'intégration front-end
 ----
 
 # Mixins et fonctions
+
+[Documentation](http://lesscss.org/features/#mixins-feature)
 
     !css
     .a, #b {
@@ -199,9 +313,11 @@ Les options
 
 ----
 
-## Arborescence type d'un thème
+## Drupal Bootstrap
 
-### Dans le profil 
+[Projet](https://www.drupal.org/project/bootstrap) ([Documentation](https://www.drupal.org/node/1976938))
+
+## Arborescence dans le profil 
 
     !console
     mon_profil_drupal/
@@ -212,16 +328,16 @@ Les options
     ├── mon_profil_drupal.profile
     ├── modules
     ├── themes
-    │   └── mon_theme
+    │   └── montheme
     └── translations
 
 
 ----
 
-### Arborescence du thème
+## Arborescence du thème
 
     !console
-    mon_theme
+    montheme
     ├── bootstrap -> ../../../../sites/all/libraries/bootstrap/
     ├── css
     ├── fonts
@@ -266,36 +382,14 @@ Les options
 
 ## Les fichiers less
 
-* bootstrap.less importe les feuilles de styles bootstrap
-* style.less importe les feuilles de styles du projet
-
-
-----
-
-# Environnement Gulp
-
-----
-
-## À quoi ça sert ?
-
-Gulp sera utilisé pour :
-
-* générer les fichiers css à partir de style.less et bootstrap.less, à chaque modification d'un fichier
-* minifier les fichiers css et js (optionnel, dans ce cas on n'utilise pas les fonctions de minification de Drupal)
-
-----
-
-## Installation de l'environnement
-
-* install nodejs
-* installation des modules
-* préparation du fichier Gulpfile.js
-
-
-## Utilisation
-
-    !console
-    gulp watch
+* `bootstrap.less` importe les feuilles de styles bootstrap
+* `style.less` importe les feuilles de styles du projet
+* `header.less`, `content.less` et `footer.less` pour gérer le layout
+* Dans `objects/`, `forms.less` et `tables.less` pour gérer les formulaires ou les tableaux
+* Dans `nodes/`, pour gérer ce qui est relatif aux types de contenus
+* Dans `pages/`, pour gérer les pages telles que l'inscription
+* `mixins.less` qui inclue les fonctions less du projet
+* `variables.less` qui inclue les variables bootstrap et celles du projet
 
 ----
 

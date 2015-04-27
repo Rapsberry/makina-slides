@@ -26,6 +26,12 @@ pre {
     background-color: #222;
     font-size: 20px;
 }
+code {
+    background-color: #222;
+    font-size: 22px;
+    padding: 2px;
+    font-family: Monaco,Courier,monospace;
+}
 
 p {
     margin-bottom: 0.5em;
@@ -60,10 +66,10 @@ a {
     font-size: 20px;
 }
 .smaller section pre {
-    font-size: 18px;
+    font-size: 16px;
 }
 .smaller div h1 {
-    font-size: 40px;
+    font-size: 36px;
 }
 
 /* Larger */
